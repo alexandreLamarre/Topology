@@ -2,7 +2,7 @@ package Struct;
 import java.lang.Math.*;
 
 /**
- * Class Heap implementing a HeapDataStructure with Arrays
+ * Class Heap implementing a HeapDataStructure with integer Arrays
  */
 public class Heap {
     int[] container;
@@ -19,12 +19,19 @@ public class Heap {
         return length;
     }
 
+    public void set_heap_length(int length){
+        this.length = length;
+    }
+
     public int heap_size(){
         return size;
     }
 
-    public int parent(int i){
+    public void set_heap_size(int size){
+        this.size = size;
+    }
 
+    public int parent(int i){
         return (int) Math.floor(i/2);
     }
 
