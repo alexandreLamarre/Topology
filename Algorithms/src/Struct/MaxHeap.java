@@ -8,32 +8,43 @@ public class MaxHeap extends Heap{
     }
 
     public void MaxHeapify(int[] A, int i){
-        int largest = 0; //TODO: find what initial value this should hold.
-        int l = Left(i);
-        int r = Right(i);
-        if((l <= this.heap_size()) && (A[l] > A[i])){
+
+        int largest;
+        int current = i-1;
+        int l = Left(i) -1;
+        int r = Right(i) -1;
+
+        //Check the left node if it exists and compare it to the current node
+        if((l < this.heap_size()) && (A[l] > A[current])){
             largest = l;
         }
-        if((r <= this.heap_size()) && A[r]> A[largest]){
+        else{
+            largest = current;
+        }
+
+        //Check the right node if it exists and compare it to the current node
+        if((r < this.heap_size()) && A[r]> A[largest]){
             largest = r;
         }
-        if(largest != i){
-            int switch_i = A[i];
+
+
+        if(largest != current){
+            int switch_i = A[current];
             int switch_largest = A[largest];
-            A[i] = switch_largest;
+            A[current] = switch_largest;
             A[largest] = switch_i;
-            MaxHeapify(A, largest);
+            MaxHeapify(A, largest+1);
         }
 
     }
 
     public void BuildMaxHeap(int[] A){
         this.set_heap_size(A.length);
-        for(int i = (int)Math.floor(A.length/2); i>= 1; i--){
+        for(int i = (int)Math.floor((A.length)/2); i>= 1; i--){
             MaxHeapify(A, i);
         }
-        this.container = A;
-
-
+        for(int j =0; j < Math.min(this.length, A.length); j++){
+            this.container[j] = A[j];
+        }
     }
 }

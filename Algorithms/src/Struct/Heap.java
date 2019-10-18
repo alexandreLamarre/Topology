@@ -43,5 +43,9 @@ public class Heap {
         return 2*i +1;
     }
 
+    public int[] get_container(){
+        return this.container;
+    }
+
 
 }
