@@ -1,9 +1,10 @@
+package Algo;
+
 import javax.swing.*;
 import java.awt.Component;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.util.Random;
 
 public class DrawingComponent extends Component{
     public static int MAX_COLOR = 16581375;
