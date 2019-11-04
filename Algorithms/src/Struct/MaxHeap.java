@@ -47,4 +47,23 @@ public class MaxHeap extends Heap{
             this.container[j] = A[j];
         }
     }
+
+    public int[][] BuildMaxHeapHandler(int[] A){
+        int process_length = (int)Math.floor((A.length)/2);
+        int[][] B = new int[process_length][A.length];
+        int messOfaFunction = 0;
+
+        this.set_heap_size(A.length);
+        for(int i = process_length; i>= 1; i--){
+            int[] C = A.clone();
+            B[messOfaFunction] = C;
+            messOfaFunction ++;
+            MaxHeapify(A, i);
+        }
+        for(int j =0; j < Math.min(this.length, A.length); j++){
+            this.container[j] = A[j];
+        }
+        return B;
+
+    }
 }
