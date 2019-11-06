@@ -6,18 +6,18 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import Struct.MaxHeap;
+import java.lang.Math;
 
 
 public class DrawArrays {
     public static int MAX_COLOR = 510+128;
-    public static int RESOLUTION = 256;
-    public static int FRAMEWIDTH = 2048;
-    public static int FRAMEHEIGHT = 2048;
+    public static int RESOLUTION = 64;
+    public static int FRAMEWIDTH = 1024;
+    public static int FRAMEHEIGHT = 1024;
     public static int SIZE = FRAMEWIDTH/RESOLUTION;
 
     public static void main(String[] args) {
-        //Set Default colors
-        int color = 0;
+
         //Set Default coordinates
         int x =0;
         int y= 0;
@@ -25,11 +25,18 @@ public class DrawArrays {
 
         //TODO there's some bugs with drawing and array index out of bounds.
         javax.swing.JFrame frame = createBasicWindow(FRAMEWIDTH, FRAMEHEIGHT);
-        heapsortProcessFrame(frame, 0,0);
+        heapsortProcessFrame(frame, x,y);
+
+        try{
+            Thread.sleep(1000);
+        }
+        catch(java.lang.InterruptedException e){
+            System.out.println(e);
+        }
 
         //TODO fix a function that draws within the RESOLUTION and FRAMEWIDTH and FRAMEHEIGHT
         javax.swing.JFrame frame1 = createBasicWindow(FRAMEWIDTH, FRAMEHEIGHT);
-        quicksortProcessFrame(frame1, 0,0);
+        quicksortProcessFrame(frame1, x,y);
 
     }
 
@@ -82,6 +89,7 @@ public class DrawArrays {
         // Decompose it into steps
         int[][] processToDraw = H.BuildMaxHeapHandler(A);
         DrawEntireProcess(frame, processToDraw, x,y);
+        System.out.println("Heapsort process completed");
 
     }
     /**
@@ -93,10 +101,12 @@ public class DrawArrays {
      */
     public static void quicksortProcessFrame(javax.swing.JFrame frame, int x, int y){
         //create random array
+
         int[] A = randArr(RESOLUTION);
         //Create a 2D array displaying quicksort sorting process
         int[][] processToDraw = Quicksort.quickSortHandler(A);
         DrawEntireProcess(frame, processToDraw, x,y);
+        System.out.println("Quicksort process completed");
     }
 
 

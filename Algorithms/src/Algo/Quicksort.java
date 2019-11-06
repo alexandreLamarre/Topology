@@ -1,8 +1,9 @@
 package Algo;
 
-public class Quicksort {
+public class Quicksort extends Sort {
 
     public static void main(String[] args) {
+        //Static test for quicksort
         int[] A = {6,7,3,4,5,11,12,56,78,65};
         int[][] B;
         B = quickSortHandler(A);
@@ -12,24 +13,47 @@ public class Quicksort {
                 printArray(B[i]);
             }
         }
+        //random test for quicksort
+        int[] Arr = DrawArrays.randArr(DrawArrays.RESOLUTION);
+        int [][] Brr;
+        Brr = quickSortHandler(Arr);
+        System.out.println(Brr.length);
+        for(int i =0; i< Brr.length; i++){
+            if(Brr[i] != null) {
+                System.out.println(i + "\n");
+                printArray(Brr[i]);
+            }
+        }
+
     }
 
-    public static void printArray(int arr[])
-    {
-        int n = arr.length;
-        for (int i=0; i<n; ++i)
-            System.out.print(arr[i]+" ");
-        System.out.println();
-    }
 
+    /**
+     * Quicksort the array A in place without specifiying indices for convenience
+     * @param A array to be sorted
+     */
     public static void quickSort(int[] A){
         quickSortIterative(A, 0, A.length-1);
     }
+
+    /**
+     * Quicksort the array A in place without specifying indicies for convenience and
+     * returning an array which contains all of the substeps needed to sort the array
+     * @param A array to be sorted
+     * @return 2D array of intermediate sorted states
+     */
     public static int[][] quickSortHandler(int[] A){
         return quickSortIterative(A, 0, A.length-1);
     }
 
-    static int partition(int arr[], int start, int end)
+    /**
+     * Divide array to be sorted and swamp its entries in the corresponding divided partitions
+     * @param arr array to partition
+     * @param start start index of partition
+     * @param end last index of partition
+     * @return the index of the pivot
+     */
+    private static int partition(int arr[], int start, int end)
     {
         int pivot = arr[end];
 
@@ -56,11 +80,15 @@ public class Quicksort {
         return i + 1;
     }
 
-    /* A[] --> Array to be sorted,
-   l  --> Starting index,
-   h  --> Ending index */
 
-    static int[][] quickSortIterative(int arr[], int start, int end)
+    /**
+     * Iterative implementation of quicksort -- chooses a pivot and sorts around it
+     * @param arr array to be sorted
+     * @param start start index for sorting
+     * @param end end index for sorting
+     * @return handler for all the step in quicksort
+     */
+    private static int[][] quickSortIterative(int arr[], int start, int end)
     {
         // Create an auxiliary stack
         int[] stack = new int[end - start + 1];
@@ -70,8 +98,10 @@ public class Quicksort {
 
         //Initialize step of Handler
         int step = 0;
-        int [][] B = new int[arr.length][];
-
+        int Blength = arr.length;
+        int [][] B = new int[Blength][];
+        B[step] = copy(arr);
+        step++;
         // push initial values of l and h to stack
         stack[++top] = start;
         stack[++top] = end;
@@ -82,10 +112,11 @@ public class Quicksort {
             end = stack[top--];
             start = stack[top--];
             B[step] = copy(arr);
+            step++;
             // Set pivot element at its correct position
             // in sorted array
             int p = partition(arr, start, end);
-            step++;
+
 
 
             // If there are elements on left side of pivot,
@@ -102,17 +133,20 @@ public class Quicksort {
                 stack[++top] = end;
             }
         }
+        B[step] = copy(arr);
 
         return B;
     }
 
-    public static int[] copy(int[] A){
+    /**
+     * Complete copy of array using implementation of System.arraycopy
+     * @param A array to be copied
+     * @return Copy of array
+     */
+    private static int[] copy(int[] A){
         int[] C = new int[A.length];
 
-        for(int i =0; i< A.length; i++){
-            C[i] = A[i];
-        }
-
+        System.arraycopy(A,0,C,0,A.length);
         return C;
     }
 
